@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+
 import 'animation_limiter.dart';
 
 typedef Builder = Widget Function(
@@ -12,11 +13,11 @@ class AnimationExecutor extends StatefulWidget {
   final Builder builder;
 
   const AnimationExecutor({
-    Key? key,
+    super.key,
     required this.duration,
     this.delay = Duration.zero,
     required this.builder,
-  }) : super(key: key);
+  });
 
   @override
   _AnimationExecutorState createState() => _AnimationExecutorState();

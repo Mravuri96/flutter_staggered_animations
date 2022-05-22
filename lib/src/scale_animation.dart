@@ -25,14 +25,13 @@ class ScaleAnimation extends StatelessWidget {
   ///
   /// The [child] argument must not be null.
   const ScaleAnimation({
-    Key? key,
+    super.key,
     this.duration,
     this.delay,
     this.curve = Curves.ease,
     this.scale = 0.0,
     required this.child,
-  })   : assert(scale >= 0.0),
-        super(key: key);
+  })   : assert(scale >= 0.0);
 
   @override
   Widget build(BuildContext context) {

@@ -32,13 +32,12 @@ class AnimationConfiguration extends InheritedWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationConfiguration.synchronized({
-    Key? key,
+    super.key,
     this.duration = const Duration(milliseconds: 225),
-    required Widget child,
+    required super.child,
   })   : position = 0,
         delay = Duration.zero,
-        columnCount = 1,
-        super(key: key, child: child);
+        columnCount = 1;
 
   /// Configure the children's animation to be staggered.
   ///
@@ -60,13 +59,12 @@ class AnimationConfiguration extends InheritedWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationConfiguration.staggeredList({
-    Key? key,
+    super.key,
     required this.position,
     this.duration = const Duration(milliseconds: 225),
     this.delay,
-    required Widget child,
-  })   : columnCount = 1,
-        super(key: key, child: child);
+    required super.child,
+  })   : columnCount = 1;
 
   /// Configure the children's animation to be staggered.
   ///
@@ -90,13 +88,13 @@ class AnimationConfiguration extends InheritedWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationConfiguration.staggeredGrid({
-    Key? key,
+    super.key,
     required this.position,
     this.duration = const Duration(milliseconds: 225),
     this.delay,
     required this.columnCount,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {

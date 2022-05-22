@@ -21,9 +21,9 @@ class AnimationLimiter extends StatefulWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationLimiter({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   _AnimationLimiterState createState() => _AnimationLimiterState();
@@ -40,7 +40,7 @@ class _AnimationLimiterState extends State<AnimationLimiter> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((Duration value) {
+    WidgetsBinding.instance.addPostFrameCallback((Duration value) {
       if (!mounted) return;
       setState(() {
         _shouldRunAnimation = false;
@@ -62,8 +62,8 @@ class _AnimationLimiterProvider extends InheritedWidget {
 
   _AnimationLimiterProvider({
     this.shouldRunAnimation,
-    required Widget child,
-  }) : super(child: child);
+    required super.child,
+  });
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {

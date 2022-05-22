@@ -5,7 +5,7 @@ import '../widgets/auto_refresh.dart';
 import '../widgets/empty_card.dart';
 
 class CardGridScreen extends StatefulWidget {
-  CardGridScreen({Key? key}) : super(key: key);
+  const CardGridScreen({super.key});
 
   @override
   _CardGridScreenState createState() => _CardGridScreenState();
@@ -18,11 +18,14 @@ class _CardGridScreenState extends State<CardGridScreen> {
 
     return AutoRefresh(
       duration: const Duration(milliseconds: 2000),
-      child: Scaffold(
+          child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Animated Grid View'),
+        ),
         body: SafeArea(
           child: AnimationLimiter(
             child: GridView.count(
-              childAspectRatio: 1.0,
               padding: const EdgeInsets.all(8.0),
               crossAxisCount: columnCount,
               children: List.generate(
@@ -32,10 +35,13 @@ class _CardGridScreenState extends State<CardGridScreen> {
                     columnCount: columnCount,
                     position: index,
                     duration: const Duration(milliseconds: 375),
-                    child: const ScaleAnimation(
+                    child: ScaleAnimation(
                       scale: 0.5,
                       child: FadeInAnimation(
-                        child: EmptyCard(),
+                        child: EmptyCard(
+                          width: MediaQuery.of(context).size.width,
+                          height: 88.0,
+                        ),
                       ),
                     ),
                   );

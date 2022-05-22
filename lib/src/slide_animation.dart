@@ -30,7 +30,7 @@ class SlideAnimation extends StatelessWidget {
   ///
   /// The [child] argument must not be null.
   const SlideAnimation({
-    Key? key,
+    super.key,
     this.duration,
     this.delay,
     this.curve = Curves.ease,
@@ -38,8 +38,7 @@ class SlideAnimation extends StatelessWidget {
     double? horizontalOffset,
     required this.child,
   })   : verticalOffset = (verticalOffset == null && horizontalOffset == null) ? 50.0 : (verticalOffset ?? 0.0),
-        horizontalOffset = horizontalOffset ?? 0.0,
-        super(key: key);
+        horizontalOffset = horizontalOffset ?? 0.0;
 
   @override
   Widget build(BuildContext context) {
