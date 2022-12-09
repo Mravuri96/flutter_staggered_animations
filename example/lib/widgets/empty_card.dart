@@ -3,14 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class EmptyCard extends StatelessWidget {
-  final double? width;
-  final double? height;
-
   const EmptyCard({
     super.key,
     this.width,
     this.height,
   });
+  final double? width;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +22,15 @@ class EmptyCard extends StatelessWidget {
     return Container(
       width: width,
       height: height,
-      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
         color: randomCol,
-        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
         boxShadow: const <BoxShadow>[
           BoxShadow(
             color: Colors.black12,
-            blurRadius: 4.0,
-            offset: Offset(0.0, 4.0),
+            blurRadius: 4,
+            offset: Offset(0, 4),
           ),
         ],
       ),

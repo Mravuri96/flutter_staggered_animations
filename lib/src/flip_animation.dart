@@ -15,6 +15,20 @@ enum FlipAxis {
 
 /// An animation that flips its child either vertically or horizontally.
 class FlipAnimation extends StatelessWidget {
+  /// Creates a flip animation that flips its child.
+  ///
+  /// Default value for [flipAxis] is [FlipAxis.x].
+  ///
+  /// The [child] argument must not be null.
+  const FlipAnimation({
+    super.key,
+    this.duration,
+    this.delay,
+    this.curve = Curves.ease,
+    this.flipAxis = FlipAxis.x,
+    required this.child,
+  });
+
   /// The duration of the child animation.
   final Duration? duration;
 
@@ -30,39 +44,23 @@ class FlipAnimation extends StatelessWidget {
   /// The child Widget to animate.
   final Widget child;
 
-  /// Creates a flip animation that flips its child.
-  ///
-  /// Default value for [flipAxis] is [FlipAxis.x].
-  ///
-  /// The [child] argument must not be null.
-  const FlipAnimation({
-    super.key,
-    this.duration,
-    this.delay,
-    this.curve = Curves.ease,
-    this.flipAxis = FlipAxis.x,
-    required this.child,
-  });
-
   @override
-  Widget build(BuildContext context) {
-    return AnimationConfigurator(
-      duration: duration,
-      delay: delay,
-      animatedChildBuilder: _flipAnimation,
-    );
-  }
+  Widget build(final BuildContext context) => AnimationConfigurator(
+        duration: duration,
+        delay: delay,
+        animatedChildBuilder: _flipAnimation,
+      );
 
-  Widget _flipAnimation(Animation<double> animation) {
-    final _flipAnimation = Tween<double>(begin: 0, end: 1).animate(
+  Widget _flipAnimation(final Animation<double> animation) {
+    final flipAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: animation,
-        curve: Interval(0.0, 1.0, curve: curve),
+        curve: Interval(0, 1, curve: curve),
       ),
     );
 
     Matrix4 _computeTransformationMatrix() {
-      var radians = (1 - _flipAnimation.value) * pi / 2;
+      final radians = (1 - flipAnimation.value) * pi / 2;
 
       switch (flipAxis) {
         case FlipAxis.y:

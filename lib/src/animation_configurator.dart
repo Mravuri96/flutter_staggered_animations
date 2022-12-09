@@ -4,19 +4,18 @@ import 'animation_configuration.dart';
 import 'animation_executor.dart';
 
 class AnimationConfigurator extends StatelessWidget {
-  final Duration? duration;
-  final Duration? delay;
-  final Widget Function(Animation<double>) animatedChildBuilder;
-
   const AnimationConfigurator({
     super.key,
     this.duration,
     this.delay,
     required this.animatedChildBuilder,
   });
+  final Duration? duration;
+  final Duration? delay;
+  final Widget Function(Animation<double>) animatedChildBuilder;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final animationConfiguration = AnimationConfiguration.of(context);
 
     if (animationConfiguration == null) {
@@ -35,36 +34,38 @@ class AnimationConfigurator extends StatelessWidget {
       );
     }
 
-    final _position = animationConfiguration.position;
-    final _duration = duration ?? animationConfiguration.duration;
-    final _delay = delay ?? animationConfiguration.delay;
-    final _columnCount = animationConfiguration.columnCount;
+    final position = animationConfiguration.position;
+    final duration = this.duration ?? animationConfiguration.duration;
+    final delay = this.delay ?? animationConfiguration.delay;
+    final columnCount = animationConfiguration.columnCount;
 
     return AnimationExecutor(
-      duration: _duration,
-      delay: stagger(_position, _duration, _delay, _columnCount),
-      builder: (context, animationController) =>
+      duration: duration,
+      delay: stagger(position, duration, delay, columnCount),
+      builder: (final context, final animationController) =>
           animatedChildBuilder(animationController!),
     );
   }
 
   Duration stagger(
-      int position, Duration duration, Duration? delay, int columnCount) {
-    var delayInMilliseconds =
-        (delay == null ? duration.inMilliseconds ~/ 6 : delay.inMilliseconds);
+    final int position,
+    final Duration duration,
+    final Duration? delay,
+    final int columnCount,
+  ) {
+    final delayInMilliseconds =
+        delay == null ? duration.inMilliseconds ~/ 6 : delay.inMilliseconds;
 
-    int _computeStaggeredGridDuration() {
-      return (position ~/ columnCount + position % columnCount) *
-          delayInMilliseconds;
-    }
+    int computeStaggeredGridDuration() =>
+        (position ~/ columnCount + position % columnCount) *
+        delayInMilliseconds;
 
-    int _computeStaggeredListDuration() {
-      return position * delayInMilliseconds;
-    }
+    int computeStaggeredListDuration() => position * delayInMilliseconds;
 
     return Duration(
-        milliseconds: columnCount > 1
-            ? _computeStaggeredGridDuration()
-            : _computeStaggeredListDuration());
+      milliseconds: columnCount > 1
+          ? computeStaggeredGridDuration()
+          : computeStaggeredListDuration(),
+    );
   }
 }

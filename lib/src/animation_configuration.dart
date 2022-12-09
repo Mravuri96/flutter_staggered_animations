@@ -14,18 +14,6 @@ import 'package:flutter/widgets.dart';
 /// [AnimationConfiguration.staggeredGrid] if you want to delay the animation of each child
 /// to produce a dual-axis staggered animations (from left to right and top to bottom).
 class AnimationConfiguration extends InheritedWidget {
-  /// Index used as a factor to calculate the delay of each child's animation.
-  final int position;
-
-  /// The duration of each child's animation.
-  final Duration duration;
-
-  /// The delay between the beginning of two children's animations.
-  final Duration? delay;
-
-  /// The column count of the grid
-  final int columnCount;
-
   /// Configure the children's animation to be synchronized (all the children's animation start at the same time).
   ///
   /// Default value for [duration] is 225ms.
@@ -35,7 +23,7 @@ class AnimationConfiguration extends InheritedWidget {
     super.key,
     this.duration = const Duration(milliseconds: 225),
     required super.child,
-  })   : position = 0,
+  })  : position = 0,
         delay = Duration.zero,
         columnCount = 1;
 
@@ -64,7 +52,7 @@ class AnimationConfiguration extends InheritedWidget {
     this.duration = const Duration(milliseconds: 225),
     this.delay,
     required super.child,
-  })   : columnCount = 1;
+  }) : columnCount = 1;
 
   /// Configure the children's animation to be staggered.
   ///
@@ -96,10 +84,20 @@ class AnimationConfiguration extends InheritedWidget {
     required super.child,
   });
 
+  /// Index used as a factor to calculate the delay of each child's animation.
+  final int position;
+
+  /// The duration of each child's animation.
+  final Duration duration;
+
+  /// The delay between the beginning of two children's animations.
+  final Duration? delay;
+
+  /// The column count of the grid
+  final int columnCount;
+
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return false;
-  }
+  bool updateShouldNotify(final InheritedWidget oldWidget) => false;
 
   /// Helper method to apply a staggered animation to the children of a [Column] or [Row].
   ///
@@ -127,15 +125,15 @@ class AnimationConfiguration extends InheritedWidget {
   /// The [children] argument must not be null.
   /// It corresponds to the children you would normally have passed to the [Column] or [Row].
   static List<Widget> toStaggeredList({
-    Duration? duration,
-    Duration? delay,
-    required Widget Function(Widget) childAnimationBuilder,
-    required List<Widget> children,
+    final Duration? duration,
+    final Duration? delay,
+    required final Widget Function(Widget) childAnimationBuilder,
+    required final List<Widget> children,
   }) =>
       children
           .asMap()
-          .map((index, widget) {
-            return MapEntry(
+          .map(
+            (final index, final widget) => MapEntry(
               index,
               AnimationConfiguration.staggeredList(
                 position: index,
@@ -143,12 +141,11 @@ class AnimationConfiguration extends InheritedWidget {
                 delay: delay,
                 child: childAnimationBuilder(widget),
               ),
-            );
-          })
+            ),
+          )
           .values
           .toList();
 
-  static AnimationConfiguration? of(BuildContext context) {
-    return context.findAncestorWidgetOfExactType<AnimationConfiguration>();
-  }
+  static AnimationConfiguration? of(final BuildContext context) =>
+      context.findAncestorWidgetOfExactType<AnimationConfiguration>();
 }

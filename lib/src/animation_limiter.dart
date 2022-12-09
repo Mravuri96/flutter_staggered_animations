@@ -13,9 +13,6 @@ import 'package:flutter/widgets.dart';
 ///
 /// To be effective, AnimationLimiter musts be a direct parent of your scrollable list of widgets.
 class AnimationLimiter extends StatefulWidget {
-  /// The child Widget to animate.
-  final Widget child;
-
   /// Creates an [AnimationLimiter] that will prevents the children widgets to be
   /// animated if they don't appear in the first frame where AnimationLimiter is built.
   ///
@@ -25,12 +22,14 @@ class AnimationLimiter extends StatefulWidget {
     required this.child,
   });
 
+  /// The child Widget to animate.
+  final Widget child;
+
   @override
   _AnimationLimiterState createState() => _AnimationLimiterState();
 
-  static bool? shouldRunAnimation(BuildContext context) {
-    return _AnimationLimiterProvider.of(context)?.shouldRunAnimation;
-  }
+  static bool? shouldRunAnimation(final BuildContext context) =>
+      _AnimationLimiterProvider.of(context)?.shouldRunAnimation;
 }
 
 class _AnimationLimiterState extends State<AnimationLimiter> {
@@ -40,7 +39,7 @@ class _AnimationLimiterState extends State<AnimationLimiter> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((Duration value) {
+    WidgetsBinding.instance.addPostFrameCallback((final value) {
       if (!mounted) return;
       setState(() {
         _shouldRunAnimation = false;
@@ -49,28 +48,22 @@ class _AnimationLimiterState extends State<AnimationLimiter> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return _AnimationLimiterProvider(
-      shouldRunAnimation: _shouldRunAnimation,
-      child: widget.child,
-    );
-  }
+  Widget build(final BuildContext context) => _AnimationLimiterProvider(
+        shouldRunAnimation: _shouldRunAnimation,
+        child: widget.child,
+      );
 }
 
 class _AnimationLimiterProvider extends InheritedWidget {
-  final bool? shouldRunAnimation;
-
-  _AnimationLimiterProvider({
+  const _AnimationLimiterProvider({
     this.shouldRunAnimation,
     required super.child,
   });
+  final bool? shouldRunAnimation;
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return false;
-  }
+  bool updateShouldNotify(final InheritedWidget oldWidget) => false;
 
-  static _AnimationLimiterProvider? of(BuildContext context) {
-    return context.findAncestorWidgetOfExactType<_AnimationLimiterProvider>();
-  }
+  static _AnimationLimiterProvider? of(final BuildContext context) =>
+      context.findAncestorWidgetOfExactType<_AnimationLimiterProvider>();
 }

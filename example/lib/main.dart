@@ -1,27 +1,25 @@
-import 'package:example/screens/card_flip.dart';
-import 'package:example/screens/card_scale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import 'screens/card_column_screen.dart';
+import 'screens/card_flip.dart';
 import 'screens/card_grid_screen.dart';
 import 'screens/card_list_screen.dart';
+import 'screens/card_scale.dart';
 
 void main() => runApp(const App());
 
 class App extends StatelessWidget {
   const App({super.key});
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color.fromRGBO(239, 238, 239, 1.0),
-      ),
-      home: const HomeScreen(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        theme: ThemeData(
+          brightness: Brightness.light,
+          scaffoldBackgroundColor: const Color.fromRGBO(239, 238, 239, 1),
+        ),
+        home: const HomeScreen(),
+        debugShowCheckedModeBanner: false,
+      );
 }
 
 class HomeScreen extends StatelessWidget {
@@ -76,7 +74,7 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute<ScaleTest>(
-              builder: (context) =>  ScaleTest(),
+              builder: (context) => const ScaleTest(),
               maintainState: false,
             ),
           );
@@ -106,25 +104,23 @@ class HomeScreen extends StatelessWidget {
           itemCount: pages.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, i) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Center(
-                child: AnimationConfiguration.staggeredList(
-                  duration: const Duration(milliseconds: 750),
-                  position: i,
-                  child: SlideAnimation(
-                    verticalOffset: i % 2 == 0 ? 88.0 : 88.0,
-                    horizontalOffset: i % 2 == 0 ? 88.0 : -88.0,
-                    child: FadeInAnimation(
-                      duration: const Duration(seconds: 1),
-                      child: pages[i],
-                    ),
+          itemBuilder: (context, i) => Padding(
+            padding: const EdgeInsets.all(8),
+            child: Center(
+              child: AnimationConfiguration.staggeredList(
+                duration: const Duration(milliseconds: 750),
+                position: i,
+                child: SlideAnimation(
+                  verticalOffset: i % 2 == 0 ? 88.0 : 88.0,
+                  horizontalOffset: i % 2 == 0 ? 88.0 : -88.0,
+                  child: FadeInAnimation(
+                    duration: const Duration(seconds: 1),
+                    child: pages[i],
                   ),
                 ),
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );

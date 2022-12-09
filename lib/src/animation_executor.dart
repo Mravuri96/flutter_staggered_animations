@@ -5,19 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'animation_limiter.dart';
 
 typedef Builder = Widget Function(
-    BuildContext context, AnimationController? animationController);
+  BuildContext context,
+  AnimationController? animationController,
+);
 
 class AnimationExecutor extends StatefulWidget {
-  final Duration duration;
-  final Duration delay;
-  final Builder builder;
-
   const AnimationExecutor({
     super.key,
     required this.duration,
     this.delay = Duration.zero,
     required this.builder,
   });
+  final Duration duration;
+  final Duration delay;
+  final Builder builder;
 
   @override
   _AnimationExecutorState createState() => _AnimationExecutorState();
@@ -43,12 +44,10 @@ class _AnimationExecutorState extends State<AnimationExecutor>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      builder: _buildAnimation,
-      animation: _animationController!,
-    );
-  }
+  Widget build(final BuildContext context) => AnimatedBuilder(
+        builder: _buildAnimation,
+        animation: _animationController!,
+      );
 
   @override
   void dispose() {
@@ -57,7 +56,6 @@ class _AnimationExecutorState extends State<AnimationExecutor>
     super.dispose();
   }
 
-  Widget _buildAnimation(BuildContext context, Widget? child) {
-    return widget.builder(context, _animationController);
-  }
+  Widget _buildAnimation(final BuildContext context, final Widget? child) =>
+      widget.builder(context, _animationController);
 }

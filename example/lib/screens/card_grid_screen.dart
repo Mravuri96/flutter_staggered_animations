@@ -14,11 +14,11 @@ class CardGridScreen extends StatefulWidget {
 class _CardGridScreenState extends State<CardGridScreen> {
   @override
   Widget build(BuildContext context) {
-    var columnCount = 3;
+    const columnCount = 3;
 
     return AutoRefresh(
       duration: const Duration(milliseconds: 2000),
-          child: Scaffold(
+      child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Animated Grid View'),
@@ -26,26 +26,24 @@ class _CardGridScreenState extends State<CardGridScreen> {
         body: SafeArea(
           child: AnimationLimiter(
             child: GridView.count(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               crossAxisCount: columnCount,
               children: List.generate(
                 100,
-                (int index) {
-                  return AnimationConfiguration.staggeredGrid(
-                    columnCount: columnCount,
-                    position: index,
-                    duration: const Duration(milliseconds: 375),
-                    child: ScaleAnimation(
-                      scale: 0.5,
-                      child: FadeInAnimation(
-                        child: EmptyCard(
-                          width: MediaQuery.of(context).size.width,
-                          height: 88.0,
-                        ),
+                (index) => AnimationConfiguration.staggeredGrid(
+                  columnCount: columnCount,
+                  position: index,
+                  duration: const Duration(milliseconds: 375),
+                  child: ScaleAnimation(
+                    scale: 0.5,
+                    child: FadeInAnimation(
+                      child: EmptyCard(
+                        width: MediaQuery.of(context).size.width,
+                        height: 88,
                       ),
                     ),
-                  );
-                },
+                  ),
+                ),
               ),
             ),
           ),
