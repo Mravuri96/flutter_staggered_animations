@@ -130,21 +130,22 @@ class AnimationConfiguration extends InheritedWidget {
     required final Widget Function(Widget) childAnimationBuilder,
     required final List<Widget> children,
   }) =>
-      children
-          .asMap()
-          .map(
-            (final index, final widget) => MapEntry(
-              index,
-              AnimationConfiguration.staggeredList(
-                position: index,
-                duration: duration ?? const Duration(milliseconds: 225),
-                delay: delay,
-                child: childAnimationBuilder(widget),
+      [
+        ...children
+            .asMap()
+            .map(
+              (final index, final widget) => MapEntry(
+                index,
+                AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: duration ?? const Duration(milliseconds: 225),
+                  delay: delay,
+                  child: childAnimationBuilder(widget),
+                ),
               ),
-            ),
-          )
-          .values
-          .toList();
+            )
+            .values
+      ];
 
   static AnimationConfiguration? of(final BuildContext context) =>
       context.findAncestorWidgetOfExactType<AnimationConfiguration>();
