@@ -22,11 +22,11 @@ class _CardFlipTestState extends State<CardFlipTest>
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: Builder(
-            builder: (context) => AppBar(
+            builder: (final context) => AppBar(
               centerTitle: true,
               title: const Text('Card Flip example'),
               actions: <Widget>[
@@ -60,7 +60,7 @@ class _CardFlipTestState extends State<CardFlipTest>
               child: ListView.builder(
                 padding: const EdgeInsets.all(8),
                 itemCount: 100,
-                itemBuilder: (context, index) =>
+                itemBuilder: (final context, final index) =>
                     AnimationConfiguration.staggeredList(
                   position: index,
                   duration: const Duration(milliseconds: 375),

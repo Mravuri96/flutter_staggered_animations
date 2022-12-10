@@ -13,7 +13,7 @@ class CardColumnScreen extends StatefulWidget {
 
 class _CardColumnScreenState extends State<CardColumnScreen> {
   @override
-  Widget build(BuildContext context) => AutoRefresh(
+  Widget build(final BuildContext context) => AutoRefresh(
         duration: const Duration(milliseconds: 2000),
         child: Scaffold(
           appBar: AppBar(
@@ -27,7 +27,7 @@ class _CardColumnScreenState extends State<CardColumnScreen> {
                 child: Column(
                   children: AnimationConfiguration.toStaggeredList(
                     duration: const Duration(milliseconds: 375),
-                    childAnimationBuilder: (widget) => SlideAnimation(
+                    childAnimationBuilder: (final widget) => SlideAnimation(
                       horizontalOffset: MediaQuery.of(context).size.width / 2,
                       child: FadeInAnimation(child: widget),
                     ),

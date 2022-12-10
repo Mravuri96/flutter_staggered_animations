@@ -12,7 +12,7 @@ class EmptyCard extends StatelessWidget {
   final double? height;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final color = Random.secure();
     final r = color.nextInt(255);
     final g = color.nextInt(255);

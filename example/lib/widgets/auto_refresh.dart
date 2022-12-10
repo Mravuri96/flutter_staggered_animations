@@ -33,7 +33,7 @@ class _AutoRefreshState extends State<AutoRefresh> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
+  Widget build(final BuildContext context) => Container(
         key: key,
         child: widget.child,
       );

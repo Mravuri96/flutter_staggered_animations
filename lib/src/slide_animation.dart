@@ -51,7 +51,7 @@ class SlideAnimation extends StatelessWidget {
 
   Widget _slideAnimation(final Animation<double> animation) {
     Animation<double> offsetAnimation(
-            final double offset, final Animation<double> animation) =>
+            final double offset, final Animation<double> animation,) =>
         Tween<double>(begin: offset, end: 0).animate(
           CurvedAnimation(
             parent: animation,

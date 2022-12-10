@@ -13,7 +13,7 @@ class CardListScreen extends StatefulWidget {
 
 class _CardListScreenState extends State<CardListScreen> {
   @override
-  Widget build(BuildContext context) => AutoRefresh(
+  Widget build(final BuildContext context) => AutoRefresh(
         duration: const Duration(milliseconds: 2000),
         child: Scaffold(
           appBar: AppBar(
@@ -25,7 +25,7 @@ class _CardListScreenState extends State<CardListScreen> {
               child: ListView.builder(
                 padding: const EdgeInsets.all(8),
                 itemCount: 100,
-                itemBuilder: (context, index) =>
+                itemBuilder: (final context, final index) =>
                     AnimationConfiguration.staggeredList(
                   position: index,
                   duration: const Duration(milliseconds: 375),

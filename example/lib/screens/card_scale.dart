@@ -19,11 +19,11 @@ class _ScaleTestState extends State<ScaleTest> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(final BuildContext context) => Scaffold(
         appBar: PreferredSize(
           preferredSize: const Size.fromHeight(56),
           child: Builder(
-            builder: (context) => AppBar(
+            builder: (final context) => AppBar(
               centerTitle: true,
               title: const Text('Card Flip example'),
               actions: <Widget>[
@@ -58,7 +58,7 @@ class _ScaleTestState extends State<ScaleTest> {
                 padding: const EdgeInsets.all(8),
                 itemCount: 100,
                 reverse: rev,
-                itemBuilder: (context, index) =>
+                itemBuilder: (final context, final index) =>
                     AnimationConfiguration.staggeredList(
                   position: index,
                   duration: const Duration(milliseconds: 375),

@@ -12,7 +12,7 @@ void main() => runApp(const App());
 class App extends StatelessWidget {
   const App({super.key});
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(final BuildContext context) => MaterialApp(
         theme: ThemeData(
           brightness: Brightness.light,
           scaffoldBackgroundColor: const Color.fromRGBO(239, 238, 239, 1),
@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final pages = [
       ElevatedButton.icon(
         icon: const Icon(Icons.list),
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute<CardListScreen>(
-              builder: (context) => const CardListScreen(),
+              builder: (final context) => const CardListScreen(),
               maintainState: false,
             ),
           );
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
             context,
             MaterialPageRoute<CardGridScreen>(
               maintainState: false,
-              builder: (context) => const CardGridScreen(),
+              builder: (final context) => const CardGridScreen(),
             ),
           );
         },
@@ -61,7 +61,7 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute<CardFlipTest>(
-              builder: (context) => const CardFlipTest(),
+              builder: (final context) => const CardFlipTest(),
               maintainState: false,
             ),
           );
@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute<ScaleTest>(
-              builder: (context) => const ScaleTest(),
+              builder: (final context) => const ScaleTest(),
               maintainState: false,
             ),
           );
@@ -87,7 +87,7 @@ class HomeScreen extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute<CardColumnScreen>(
-              builder: (context) => const CardColumnScreen(),
+              builder: (final context) => const CardColumnScreen(),
               maintainState: false,
             ),
           );
@@ -104,7 +104,7 @@ class HomeScreen extends StatelessWidget {
           itemCount: pages.length,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, i) => Padding(
+          itemBuilder: (final context, final i) => Padding(
             padding: const EdgeInsets.all(8),
             child: Center(
               child: AnimationConfiguration.staggeredList(
