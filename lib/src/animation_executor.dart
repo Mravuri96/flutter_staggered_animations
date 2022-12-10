@@ -33,13 +33,13 @@ class _AnimationExecutorState extends State<AnimationExecutor>
   void initState() {
     super.initState();
 
-    _animationController ??=
+    _animationController =
         AnimationController(duration: widget.duration, vsync: this);
 
     if (AnimationLimiter.shouldRunAnimation(context) ?? true) {
       _timer = Timer(widget.delay, _animationController!.forward);
     } else {
-      _animationController!.value = 1.0;
+      _animationController?.value = 1.0;
     }
   }
 
