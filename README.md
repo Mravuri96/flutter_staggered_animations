@@ -1,3 +1,5 @@
+[![Pub](https://img.shields.io/pub/v/flutter_staggered_animations)](https://pub.dev/packages/flutter_staggered_animations)
+
 # Flutter Staggered Animations
 
 Easily add staggered animations to your `ListView`, `GridView`, `Column` and `Row` children as shown in [Material Design guidelines](https://material.io/design/motion/customization.html#sequencing)
@@ -7,6 +9,11 @@ Easily add staggered animations to your `ListView`, `GridView`, `Column` and `Ro
 | ListView                  | GridView                   | Column                       |
 | ---                       | ---                        | ---                          |
 |![](https://github.com/mobiten/flutter_staggered_animations/blob/master/assets/card_list.gif?raw=true)  | ![](https://github.com/mobiten/flutter_staggered_animations/blob/master/assets/card_grid.gif?raw=true)  | ![](https://github.com/mobiten/flutter_staggered_animations/blob/master/assets/card_column.gif?raw=true)  |
+
+## Flutter 3.0 and breaking changes
+
+Starting version 1.1.0 `flutter_staggered_animations` requires Dart SDK 2.17 minimum.
+If you want to keep using `flutter_staggered_animations` but cannot migrate to Dart SDK 2.17 yet, use the version 1.0.0 instead.
 
 ## Flutter 2.0 and null-safety
 
@@ -19,7 +26,7 @@ If you want to keep using `flutter_staggered_animations` but cannot migrate to n
 Add the package as a dependency in your pubspec.yaml file.
 ```yaml
 dependencies:
-  flutter_staggered_animations: "^1.0.0"
+  flutter_staggered_animations: ^1.0.0
 ```
 
 ### Import
@@ -216,10 +223,4 @@ Flutter Staggered Animations is released under the [MIT License](LICENSE)
 
 ## About us
 
-We are a french mobile design and development team.
-
-Website : <a href="https://www.mobiten.com" target="_blank">https://www.mobiten.com</a>
-
-<a href="https://www.mobiten.com" target="_blank">
-    <img src="https://raw.githubusercontent.com/mobiten/flutter_staggered_animations/develop/assets/mobiten_white_on_black.png" height="56">
-</a>
+As of July 2022, this package is maintained by the front team working on the french mobile application [Dailyn](https://www.dailyn.app) 

@@ -9,11 +9,12 @@ class AutoRefresh extends StatefulWidget {
     required this.duration,
     required this.child,
   });
+
   final Duration duration;
   final Widget child;
 
   @override
-  _AutoRefreshState createState() => _AutoRefreshState();
+  State<AutoRefresh> createState() => _AutoRefreshState();
 }
 
 class _AutoRefreshState extends State<AutoRefresh> {

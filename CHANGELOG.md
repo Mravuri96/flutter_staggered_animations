@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2022-08-23
+### Added
+- Changed example project Dart version to 2.17.0 for consistency with the package version
+
+## [1.1.0] - 2022-08-23
+### Added
+- Upgraded to dart 2.17
+- Removed some -now useless- bash operators
+
 ## [1.0.0] - 2021-03-08
 ### Added
 - Migrate to null safety
@@ -33,6 +42,3 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.1] - 2019-09-04
 - Initial release
-
-
-

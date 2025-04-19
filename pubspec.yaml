@@ -1,18 +1,26 @@
 name: flutter_staggered_animations
 description: Easily add staggered animations to your ListView, GridView, Column and Row children as shown in Material Design guidelines
-version: 1.5.0
+version: 1.1.1
 homepage: https://github.com/mobiten/flutter_staggered_animations
 repository: https://github.com/mobiten/flutter_staggered_animations
 issue_tracker: https://github.com/mobiten/flutter_staggered_animations/issues
 
 environment:
-  sdk: ">=3.0.0-0.0.dev <4.0.0"
+  sdk: ">=2.19.4 <4.0.0"
+
+platforms:
+  android:
+  ios:
+  linux:
+  macos:
+  web:
+  windows:
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_lints: ^2.0.1
 
 dev_dependencies:
-  all_lint_rules_community: ^0.0.19
   flutter_test:
     sdk: flutter

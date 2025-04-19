@@ -21,12 +21,12 @@ class AnimationExecutor extends StatefulWidget {
   final Builder builder;
 
   @override
-  _AnimationExecutorState createState() => _AnimationExecutorState();
+  State<AnimationExecutor> createState() => _AnimationExecutorState();
 }
 
 class _AnimationExecutorState extends State<AnimationExecutor>
     with SingleTickerProviderStateMixin {
-  late final AnimationController? _animationController;
+  late final AnimationController _animationController;
   Timer? _timer;
 
   @override
@@ -37,22 +37,24 @@ class _AnimationExecutorState extends State<AnimationExecutor>
         AnimationController(duration: widget.duration, vsync: this);
 
     if (AnimationLimiter.shouldRunAnimation(context) ?? true) {
-      _timer = Timer(widget.delay, _animationController!.forward);
+      _timer = Timer(widget.delay, _animationController.forward);
     } else {
-      _animationController?.value = 1.0;
+      _animationController.value = 1.0;
     }
   }
 
   @override
-  Widget build(final BuildContext context) => AnimatedBuilder(
-        builder: _buildAnimation,
-        animation: _animationController!,
-      );
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      builder: _buildAnimation,
+      animation: _animationController,
+    );
+  }
 
   @override
   void dispose() {
     _timer?.cancel();
-    _animationController?.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 

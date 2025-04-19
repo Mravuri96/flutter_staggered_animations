@@ -100,27 +100,70 @@ class HomeScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: ListView.builder(
-          itemCount: pages.length,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (final context, final i) => Padding(
-            padding: const EdgeInsets.all(8),
-            child: Center(
-              child: AnimationConfiguration.staggeredList(
-                duration: const Duration(milliseconds: 750),
-                position: i,
-                child: SlideAnimation(
-                  verticalOffset: i % 2 == 0 ? 88.0 : 88.0,
-                  horizontalOffset: i % 2 == 0 ? 88.0 : -88.0,
-                  child: FadeInAnimation(
-                    duration: const Duration(seconds: 1),
-                    child: pages[i],
+        child: Column(
+          children: [
+            SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                    child: const Text('List Card Test'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CardListScreen()),
+                      );
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text('Grid Card Test'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CardGridScreen()),
+                      );
+                    },
+                  ),
+                  ElevatedButton(
+                    child: const Text('Column Card Test'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CardColumnScreen()),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
+            ListView.builder(
+              itemCount: pages.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (final context, final i) => Padding(
+                padding: const EdgeInsets.all(8),
+                child: Center(
+                  child: AnimationConfiguration.staggeredList(
+                    duration: const Duration(milliseconds: 750),
+                    position: i,
+                    child: SlideAnimation(
+                      verticalOffset: i % 2 == 0 ? 88.0 : 88.0,
+                      horizontalOffset: i % 2 == 0 ? 88.0 : -88.0,
+                      child: FadeInAnimation(
+                        duration: const Duration(seconds: 1),
+                        child: pages[i],
+                      ),
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
