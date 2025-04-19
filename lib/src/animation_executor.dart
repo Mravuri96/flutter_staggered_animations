@@ -4,17 +4,18 @@ import 'package:flutter/widgets.dart';
 
 import 'animation_limiter.dart';
 
-typedef Builder = Widget Function(
-  BuildContext context,
-  AnimationController? animationController,
-);
+typedef Builder =
+    Widget Function(
+      BuildContext context,
+      AnimationController animationController,
+    );
 
 class AnimationExecutor extends StatefulWidget {
   const AnimationExecutor({
-    super.key,
     required this.duration,
-    this.delay = Duration.zero,
     required this.builder,
+    super.key,
+    this.delay = Duration.zero,
   });
   final Duration duration;
   final Duration delay;
@@ -33,8 +34,10 @@ class _AnimationExecutorState extends State<AnimationExecutor>
   void initState() {
     super.initState();
 
-    _animationController =
-        AnimationController(duration: widget.duration, vsync: this);
+    _animationController = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
 
     if (AnimationLimiter.shouldRunAnimation(context) ?? true) {
       _timer = Timer(widget.delay, _animationController.forward);
@@ -58,6 +61,6 @@ class _AnimationExecutorState extends State<AnimationExecutor>
     super.dispose();
   }
 
-  Widget _buildAnimation(final BuildContext context, final Widget? child) =>
+  Widget _buildAnimation(BuildContext context, Widget? child) =>
       widget.builder(context, _animationController);
 }

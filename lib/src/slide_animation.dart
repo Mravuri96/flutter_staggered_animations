@@ -12,17 +12,17 @@ class SlideAnimation extends StatelessWidget {
   ///
   /// The [child] argument must not be null.
   const SlideAnimation({
+    required this.child,
     super.key,
     this.duration,
     this.delay,
     this.curve = Curves.ease,
-    final double? verticalOffset,
-    final double? horizontalOffset,
-    required this.child,
-  })  : verticalOffset = (verticalOffset == null && horizontalOffset == null)
-            ? 50.0
-            : (verticalOffset ?? 0.0),
-        horizontalOffset = horizontalOffset ?? 0.0;
+    double? verticalOffset,
+    double? horizontalOffset,
+  }) : verticalOffset = (verticalOffset == null && horizontalOffset == null)
+           ? 50.0
+           : (verticalOffset ?? 0.0),
+       horizontalOffset = horizontalOffset ?? 0.0;
 
   /// The duration of the child animation.
   final Duration? duration;
@@ -43,21 +43,22 @@ class SlideAnimation extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) => AnimationConfigurator(
-        duration: duration,
-        delay: delay,
-        animatedChildBuilder: _slideAnimation,
-      );
+  Widget build(BuildContext context) => AnimationConfigurator(
+    duration: duration,
+    delay: delay,
+    animatedChildBuilder: _slideAnimation,
+  );
 
-  Widget _slideAnimation(final Animation<double> animation) {
+  Widget _slideAnimation(Animation<double> animation) {
     Animation<double> offsetAnimation(
-            final double offset, final Animation<double> animation,) =>
-        Tween<double>(begin: offset, end: 0).animate(
-          CurvedAnimation(
-            parent: animation,
-            curve: Interval(0, 1, curve: curve),
-          ),
-        );
+      double offset,
+      Animation<double> animation,
+    ) => Tween<double>(begin: offset, end: 0).animate(
+      CurvedAnimation(
+        parent: animation,
+        curve: Interval(0, 1, curve: curve),
+      ),
+    );
 
     return Transform.translate(
       offset: Offset(

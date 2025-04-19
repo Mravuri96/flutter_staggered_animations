@@ -19,47 +19,43 @@ class _ScaleTestState extends State<ScaleTest> {
   }
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(56),
-          child: Builder(
-            builder: (final context) => AppBar(
-              centerTitle: true,
-              title: const Text('Card Flip example'),
-              actions: <Widget>[
-                Container(
-                  child: IconButton(
-                    icon: const Icon(Icons.sort),
-                    onPressed: () => setState(
-                      () {
-                        rev ? rev = false : rev = true;
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            duration: const Duration(seconds: 1),
-                            backgroundColor: Colors.blueAccent.shade700,
-                            content: Text(
-                              rev ? 'List Reversed' : 'Normal List',
-                            ),
-                          ),
-                        );
-                      },
+  Widget build(BuildContext context) => Scaffold(
+    appBar: PreferredSize(
+      preferredSize: const Size.fromHeight(56),
+      child: Builder(
+        builder: (context) => AppBar(
+          centerTitle: true,
+          title: const Text('Card Flip example'),
+          actions: <Widget>[
+            SizedBox(
+              child: IconButton(
+                icon: const Icon(Icons.sort),
+                onPressed: () => setState(() {
+                  rev ? rev = false : rev = true;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      duration: const Duration(seconds: 1),
+                      backgroundColor: Colors.blueAccent.shade700,
+                      content: Text(rev ? 'List Reversed' : 'Normal List'),
                     ),
-                  ),
-                )
-              ],
+                  );
+                }),
+              ),
             ),
-          ),
+          ],
         ),
-        body: AutoRefresh(
-          duration: const Duration(milliseconds: 2000),
-          child: SafeArea(
-            child: AnimationLimiter(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: 100,
-                reverse: rev,
-                itemBuilder: (final context, final index) =>
-                    AnimationConfiguration.staggeredList(
+      ),
+    ),
+    body: AutoRefresh(
+      duration: const Duration(milliseconds: 2000),
+      child: SafeArea(
+        child: AnimationLimiter(
+          child: ListView.builder(
+            padding: const EdgeInsets.all(8),
+            itemCount: 100,
+            reverse: rev,
+            itemBuilder: (context, index) =>
+                AnimationConfiguration.staggeredList(
                   position: index,
                   duration: const Duration(milliseconds: 375),
                   child: ScaleAnimation(
@@ -72,9 +68,9 @@ class _ScaleTestState extends State<ScaleTest> {
                     ),
                   ),
                 ),
-              ),
-            ),
           ),
         ),
-      );
+      ),
+    ),
+  );
 }

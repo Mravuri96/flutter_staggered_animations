@@ -12,30 +12,30 @@ void main() => runApp(const App());
 class App extends StatelessWidget {
   const App({super.key});
   @override
-  Widget build(final BuildContext context) => MaterialApp(
-        theme: ThemeData(
-          brightness: Brightness.light,
-          scaffoldBackgroundColor: const Color.fromRGBO(239, 238, 239, 1),
-        ),
-        home: const HomeScreen(),
-        debugShowCheckedModeBanner: false,
-      );
+  Widget build(BuildContext context) => MaterialApp(
+    theme: ThemeData(
+      brightness: Brightness.light,
+      scaffoldBackgroundColor: const Color.fromRGBO(239, 238, 239, 1),
+    ),
+    home: const HomeScreen(),
+    debugShowCheckedModeBanner: false,
+  );
 }
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final pages = [
       ElevatedButton.icon(
         icon: const Icon(Icons.list),
         label: const Text('List Card Test'),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push<CardListScreen>(
             context,
             MaterialPageRoute<CardListScreen>(
-              builder: (final context) => const CardListScreen(),
+              builder: (context) => const CardListScreen(),
               maintainState: false,
             ),
           );
@@ -44,12 +44,12 @@ class HomeScreen extends StatelessWidget {
       ElevatedButton.icon(
         icon: const Icon(Icons.grid_on),
         label: const Text('Grid Card Test'),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute<CardGridScreen>(
               maintainState: false,
-              builder: (final context) => const CardGridScreen(),
+              builder: (context) => const CardGridScreen(),
             ),
           );
         },
@@ -57,11 +57,11 @@ class HomeScreen extends StatelessWidget {
       ElevatedButton.icon(
         icon: const Icon(Icons.flip),
         label: const Text('Flip Card Test'),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute<CardFlipTest>(
-              builder: (final context) => const CardFlipTest(),
+              builder: (context) => const CardFlipTest(),
               maintainState: false,
             ),
           );
@@ -70,11 +70,11 @@ class HomeScreen extends StatelessWidget {
       ElevatedButton.icon(
         icon: const Icon(Icons.zoom_in),
         label: const Text('Scale Card Test'),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute<ScaleTest>(
-              builder: (final context) => const ScaleTest(),
+              builder: (context) => const ScaleTest(),
               maintainState: false,
             ),
           );
@@ -83,11 +83,11 @@ class HomeScreen extends StatelessWidget {
       ElevatedButton.icon(
         icon: const Icon(Icons.view_column),
         label: const Text('Column Card Test'),
-        onPressed: () {
-          Navigator.push(
+        onPressed: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute<CardColumnScreen>(
-              builder: (final context) => const CardColumnScreen(),
+              builder: (context) => const CardColumnScreen(),
               maintainState: false,
             ),
           );
@@ -102,39 +102,40 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            SizedBox(
-              height: double.infinity,
-              width: double.infinity,
+            SizedBox.expand(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   ElevatedButton(
                     child: const Text('List Card Test'),
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      await Navigator.push<CardListScreen>(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CardListScreen()),
+                          builder: (context) => const CardListScreen(),
+                        ),
                       );
                     },
                   ),
                   ElevatedButton(
                     child: const Text('Grid Card Test'),
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      await Navigator.push<CardGridScreen>(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CardGridScreen()),
+                          builder: (context) => const CardGridScreen(),
+                        ),
                       );
                     },
                   ),
                   ElevatedButton(
                     child: const Text('Column Card Test'),
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      await Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const CardColumnScreen()),
+                        MaterialPageRoute<CardColumnScreen>(
+                          builder: (context) => const CardColumnScreen(),
+                        ),
                       );
                     },
                   ),
@@ -145,15 +146,15 @@ class HomeScreen extends StatelessWidget {
               itemCount: pages.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (final context, final i) => Padding(
+              itemBuilder: (context, i) => Padding(
                 padding: const EdgeInsets.all(8),
                 child: Center(
                   child: AnimationConfiguration.staggeredList(
                     duration: const Duration(milliseconds: 750),
                     position: i,
                     child: SlideAnimation(
-                      verticalOffset: i % 2 == 0 ? 88.0 : 88.0,
-                      horizontalOffset: i % 2 == 0 ? 88.0 : -88.0,
+                      verticalOffset: i.isEven ? 88.0 : 88.0,
+                      horizontalOffset: i.isEven ? 88.0 : -88.0,
                       child: FadeInAnimation(
                         duration: const Duration(seconds: 1),
                         child: pages[i],

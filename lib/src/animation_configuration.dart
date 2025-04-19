@@ -20,12 +20,12 @@ class AnimationConfiguration extends InheritedWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationConfiguration.synchronized({
+    required super.child,
     super.key,
     this.duration = const Duration(milliseconds: 225),
-    required super.child,
-  })  : position = 0,
-        delay = Duration.zero,
-        columnCount = 1;
+  }) : position = 0,
+       delay = Duration.zero,
+       columnCount = 1;
 
   /// Configure the children's animation to be staggered.
   ///
@@ -47,11 +47,11 @@ class AnimationConfiguration extends InheritedWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationConfiguration.staggeredList({
-    super.key,
     required this.position,
+    required super.child,
+    super.key,
     this.duration = const Duration(milliseconds: 225),
     this.delay,
-    required super.child,
   }) : columnCount = 1;
 
   /// Configure the children's animation to be staggered.
@@ -76,12 +76,12 @@ class AnimationConfiguration extends InheritedWidget {
   ///
   /// The [child] argument must not be null.
   const AnimationConfiguration.staggeredGrid({
-    super.key,
     required this.position,
-    this.duration = const Duration(milliseconds: 225),
-    this.delay,
     required this.columnCount,
     required super.child,
+    super.key,
+    this.duration = const Duration(milliseconds: 225),
+    this.delay,
   });
 
   /// Index used as a factor to calculate the delay of each child's animation.
@@ -97,7 +97,7 @@ class AnimationConfiguration extends InheritedWidget {
   final int columnCount;
 
   @override
-  bool updateShouldNotify(final InheritedWidget oldWidget) => false;
+  bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
   /// Helper method to apply a staggered animation to the children of a [Column] or [Row].
   ///
@@ -125,28 +125,27 @@ class AnimationConfiguration extends InheritedWidget {
   /// The [children] argument must not be null.
   /// It corresponds to the children you would normally have passed to the [Column] or [Row].
   static List<Widget> toStaggeredList({
-    final Duration? duration,
-    final Duration? delay,
-    required final Widget Function(Widget) childAnimationBuilder,
-    required final List<Widget> children,
-  }) =>
-      [
-        ...children
-            .asMap()
-            .map(
-              (final index, final widget) => MapEntry(
-                index,
-                AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: duration ?? const Duration(milliseconds: 225),
-                  delay: delay,
-                  child: childAnimationBuilder(widget),
-                ),
-              ),
-            )
-            .values
-      ];
+    required Widget Function(Widget) childAnimationBuilder,
+    required List<Widget> children,
+    Duration? duration,
+    Duration? delay,
+  }) => [
+    ...children
+        .asMap()
+        .map(
+          (index, widget) => MapEntry(
+            index,
+            AnimationConfiguration.staggeredList(
+              position: index,
+              duration: duration ?? const Duration(milliseconds: 225),
+              delay: delay,
+              child: childAnimationBuilder(widget),
+            ),
+          ),
+        )
+        .values,
+  ];
 
-  static AnimationConfiguration? of(final BuildContext context) =>
+  static AnimationConfiguration? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<AnimationConfiguration>();
 }

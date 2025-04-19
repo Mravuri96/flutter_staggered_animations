@@ -10,12 +10,12 @@ class ScaleAnimation extends StatelessWidget {
   ///
   /// The [child] argument must not be null.
   const ScaleAnimation({
+    required this.child,
     super.key,
     this.duration,
     this.delay,
     this.curve = Curves.ease,
     this.scale = 0.0,
-    required this.child,
   }) : assert(scale >= 0.0);
 
   /// The duration of the child animation.
@@ -34,13 +34,13 @@ class ScaleAnimation extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) => AnimationConfigurator(
-        duration: duration,
-        delay: delay,
-        animatedChildBuilder: _landingAnimation,
-      );
+  Widget build(BuildContext context) => AnimationConfigurator(
+    duration: duration,
+    delay: delay,
+    animatedChildBuilder: _landingAnimation,
+  );
 
-  Widget _landingAnimation(final Animation<double> animation) {
+  Widget _landingAnimation(Animation<double> animation) {
     final landingAnimation = Tween<double>(begin: scale, end: 1).animate(
       CurvedAnimation(
         parent: animation,
@@ -48,9 +48,6 @@ class ScaleAnimation extends StatelessWidget {
       ),
     );
 
-    return Transform.scale(
-      scale: landingAnimation.value,
-      child: child,
-    );
+    return Transform.scale(scale: landingAnimation.value, child: child);
   }
 }

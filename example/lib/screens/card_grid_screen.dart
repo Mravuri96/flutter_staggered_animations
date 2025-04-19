@@ -13,7 +13,7 @@ class CardGridScreen extends StatefulWidget {
 
 class _CardGridScreenState extends State<CardGridScreen> {
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     const columnCount = 3;
 
     return AutoRefresh(
@@ -30,7 +30,7 @@ class _CardGridScreenState extends State<CardGridScreen> {
               crossAxisCount: columnCount,
               children: List.generate(
                 100,
-                (final index) => AnimationConfiguration.staggeredGrid(
+                (index) => AnimationConfiguration.staggeredGrid(
                   columnCount: columnCount,
                   position: index,
                   duration: const Duration(milliseconds: 375),

@@ -21,12 +21,12 @@ class FlipAnimation extends StatelessWidget {
   ///
   /// The [child] argument must not be null.
   const FlipAnimation({
+    required this.child,
     super.key,
     this.duration,
     this.delay,
     this.curve = Curves.ease,
     this.flipAxis = FlipAxis.x,
-    required this.child,
   });
 
   /// The duration of the child animation.
@@ -45,13 +45,13 @@ class FlipAnimation extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) => AnimationConfigurator(
-        duration: duration,
-        delay: delay,
-        animatedChildBuilder: _flipAnimation,
-      );
+  Widget build(BuildContext context) => AnimationConfigurator(
+    duration: duration,
+    delay: delay,
+    animatedChildBuilder: _flipAnimation,
+  );
 
-  Widget _flipAnimation(final Animation<double> animation) {
+  Widget _flipAnimation(Animation<double> animation) {
     final flipAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: animation,
@@ -59,20 +59,19 @@ class FlipAnimation extends StatelessWidget {
       ),
     );
 
-    Matrix4 _computeTransformationMatrix() {
+    Matrix4 computeTransformationMatrix() {
       final radians = (1 - flipAnimation.value) * pi / 2;
 
       switch (flipAxis) {
         case FlipAxis.y:
           return Matrix4.rotationY(radians);
         case FlipAxis.x:
-        default:
           return Matrix4.rotationX(radians);
       }
     }
 
     return Transform(
-      transform: _computeTransformationMatrix(),
+      transform: computeTransformationMatrix(),
       alignment: Alignment.center,
       child: child,
     );

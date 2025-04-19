@@ -5,33 +5,33 @@ import 'animation_executor.dart';
 
 class AnimationConfigurator extends StatelessWidget {
   const AnimationConfigurator({
+    required this.animatedChildBuilder,
     super.key,
     this.duration,
     this.delay,
-    required this.animatedChildBuilder,
   });
   final Duration? duration;
   final Duration? delay;
   final Widget Function(Animation<double>) animatedChildBuilder;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final animationConfiguration = AnimationConfiguration.of(context);
 
     if (animationConfiguration == null) {
-      throw FlutterError.fromParts(
-        <DiagnosticsNode>[
-          ErrorSummary('Animation not wrapped in an AnimationConfiguration.'),
-          ErrorDescription(
-              'This error happens if you use an Animation that is not wrapped in an '
-              'AnimationConfiguration.'),
-          ErrorHint(
-              'The solution is to wrap your Animation(s) with an AnimationConfiguration. '
-              'Reminder: an AnimationConfiguration provides the configuration '
-              'used as a base for every children Animation. Configuration made in AnimationConfiguration '
-              'can be overridden in Animation children if needed.'),
-        ],
-      );
+      throw FlutterError.fromParts(<DiagnosticsNode>[
+        ErrorSummary('Animation not wrapped in an AnimationConfiguration.'),
+        ErrorDescription(
+          'This error happens if you use an Animation that is not wrapped in an '
+          'AnimationConfiguration.',
+        ),
+        ErrorHint(
+          'The solution is to wrap your Animation(s) with an AnimationConfiguration. '
+          'Reminder: an AnimationConfiguration provides the configuration '
+          'used as a base for every children Animation. Configuration made in AnimationConfiguration '
+          'can be overridden in Animation children if needed.',
+        ),
+      ]);
     }
 
     final position = animationConfiguration.position;
@@ -42,19 +42,21 @@ class AnimationConfigurator extends StatelessWidget {
     return AnimationExecutor(
       duration: duration,
       delay: stagger(position, duration, delay, columnCount),
-      builder: (final context, final animationController) =>
-          animatedChildBuilder(animationController!),
+      builder: (context, animationController) {
+        return animatedChildBuilder(animationController);
+      },
     );
   }
 
   Duration stagger(
-    final int position,
-    final Duration duration,
-    final Duration? delay,
-    final int columnCount,
+    int position,
+    Duration duration,
+    Duration? delay,
+    int columnCount,
   ) {
-    final delayInMilliseconds =
-        delay == null ? duration.inMilliseconds ~/ 6 : delay.inMilliseconds;
+    final delayInMilliseconds = delay == null
+        ? duration.inMilliseconds ~/ 6
+        : delay.inMilliseconds;
 
     int computeStaggeredGridDuration() =>
         (position ~/ columnCount + position % columnCount) *

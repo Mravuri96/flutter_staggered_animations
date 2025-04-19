@@ -17,10 +17,7 @@ class AnimationLimiter extends StatefulWidget {
   /// animated if they don't appear in the first frame where AnimationLimiter is built.
   ///
   /// The [child] argument must not be null.
-  const AnimationLimiter({
-    super.key,
-    required this.child,
-  });
+  const AnimationLimiter({required this.child, super.key});
 
   /// The child Widget to animate.
   final Widget child;
@@ -28,19 +25,21 @@ class AnimationLimiter extends StatefulWidget {
   @override
   State<AnimationLimiter> createState() => _AnimationLimiterState();
 
-  static bool? shouldRunAnimation(final BuildContext context) =>
+  static bool? shouldRunAnimation(BuildContext context) =>
       _AnimationLimiterProvider.of(context)?.shouldRunAnimation;
 }
 
 class _AnimationLimiterState extends State<AnimationLimiter> {
-  bool _shouldRunAnimation = true;
+  var _shouldRunAnimation = true;
 
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((final value) {
-      if (!mounted) return;
+    WidgetsBinding.instance.addPostFrameCallback(( value) {
+      if (!mounted) {
+        return;
+      }
       setState(() {
         _shouldRunAnimation = false;
       });
@@ -48,22 +47,22 @@ class _AnimationLimiterState extends State<AnimationLimiter> {
   }
 
   @override
-  Widget build(final BuildContext context) => _AnimationLimiterProvider(
-        shouldRunAnimation: _shouldRunAnimation,
-        child: widget.child,
-      );
+  Widget build(BuildContext context) => _AnimationLimiterProvider(
+    shouldRunAnimation: _shouldRunAnimation,
+    child: widget.child,
+  );
 }
 
 class _AnimationLimiterProvider extends InheritedWidget {
   const _AnimationLimiterProvider({
-    this.shouldRunAnimation,
     required super.child,
+    this.shouldRunAnimation,
   });
   final bool? shouldRunAnimation;
 
   @override
-  bool updateShouldNotify(final InheritedWidget oldWidget) => false;
+  bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
-  static _AnimationLimiterProvider? of(final BuildContext context) =>
+  static _AnimationLimiterProvider? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<_AnimationLimiterProvider>();
 }

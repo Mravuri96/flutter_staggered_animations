@@ -8,11 +8,11 @@ class FadeInAnimation extends StatelessWidget {
   ///
   /// The [child] argument must not be null.
   const FadeInAnimation({
+    required this.child,
     super.key,
     this.duration,
     this.delay,
     this.curve = Curves.ease,
-    required this.child,
   });
 
   /// The duration of the child animation.
@@ -28,13 +28,13 @@ class FadeInAnimation extends StatelessWidget {
   final Widget child;
 
   @override
-  Widget build(final BuildContext context) => AnimationConfigurator(
-        duration: duration,
-        delay: delay,
-        animatedChildBuilder: _fadeInAnimation,
-      );
+  Widget build(BuildContext context) => AnimationConfigurator(
+    duration: duration,
+    delay: delay,
+    animatedChildBuilder: _fadeInAnimation,
+  );
 
-  Widget _fadeInAnimation(final Animation<double> animation) {
+  Widget _fadeInAnimation(Animation<double> animation) {
     final opacityAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: animation,
@@ -42,9 +42,6 @@ class FadeInAnimation extends StatelessWidget {
       ),
     );
 
-    return Opacity(
-      opacity: opacityAnimation.value,
-      child: child,
-    );
+    return Opacity(opacity: opacityAnimation.value, child: child);
   }
 }

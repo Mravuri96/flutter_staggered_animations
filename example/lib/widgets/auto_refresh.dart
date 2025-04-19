@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 
 /// Automatically rebuild [child] widget after the given [duration]
 class AutoRefresh extends StatefulWidget {
-  const AutoRefresh({
-    super.key,
-    required this.duration,
-    required this.child,
-  });
+  const AutoRefresh({required this.duration, required this.child, super.key});
 
   final Duration duration;
   final Widget child;
@@ -34,22 +30,17 @@ class _AutoRefreshState extends State<AutoRefresh> {
   }
 
   @override
-  Widget build(final BuildContext context) => Container(
-        key: key,
-        child: widget.child,
-      );
+  Widget build(BuildContext context) =>
+      Container(key: key, child: widget.child);
 
   void _recursiveBuild() {
-    _timer = Timer(
-      widget.duration,
-      () {
-        setState(() {
-          keyValue = keyValue! + 1;
-          key = ValueKey(keyValue);
-          _recursiveBuild();
-        });
-      },
-    );
+    _timer = Timer(widget.duration, () {
+      setState(() {
+        keyValue = keyValue! + 1;
+        key = ValueKey(keyValue);
+        _recursiveBuild();
+      });
+    });
   }
 
   @override
